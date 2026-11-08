@@ -1,0 +1,9 @@
+{
+  "name": "Goal to 180",
+  "short_name": "Goal to 180",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#101219",
+  "theme_color": "#11131a",
+  "description": "A personal strength-training and workout logging app."
+}

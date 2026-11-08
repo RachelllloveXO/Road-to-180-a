@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11131a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Goal to 180">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Goal to 180</title>
+<style>
+:root{--bg:#101219;--panel:#191d27;--panel2:#202634;--line:#303848;--text:#f4f5f8;--muted:#a5adbd;--accent:#d7a86e;--green:#8ec9a1;--red:#e58d8d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{padding:22px 18px 16px;background:linear-gradient(145deg,#242a39,#141720);border-bottom:1px solid var(--line)}
+.kicker{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+h1{font-size:30px;line-height:1.05;margin:7px 0 5px;letter-spacing:-.04em}.sub{color:var(--muted);font-size:13px}
+main{max-width:760px;margin:auto;padding:16px 14px 40px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--text);padding:11px 10px}
+button:active{transform:scale(.985)}button.primary{background:var(--accent);border-color:var(--accent);color:#171717;font-weight:800}
+button.ghost{background:transparent}button.small{padding:7px 9px;font-size:12px;border-radius:9px}
+.daybtn{font-size:12px;font-weight:700;padding:10px 4px}.daybtn.active{background:var(--accent);border-color:var(--accent);color:#171717}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:var(--muted)}.tiny{font-size:11px;color:var(--muted)}
+h2{font-size:18px;margin:0 0 4px}h3{font-size:15px;margin:0}
+.exercise{border:1px solid var(--line);border-radius:13px;margin:9px 0;overflow:hidden;background:#171b24}
+.exhead{width:100%;border:0;border-radius:0;background:transparent;text-align:left;display:flex;align-items:center;gap:12px;padding:13px}
+.num{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:#2b3241;color:var(--accent);font-weight:800;font-size:12px;flex:none}
+.exmeta{flex:1}.exname{font-weight:750}.prescription{font-size:12px;color:var(--muted);margin-top:2px}.chev{color:var(--accent);font-size:19px}
+.exbody{padding:0 12px 13px;border-top:1px solid var(--line)}
+.logtitle{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin:12px 0 8px}
+.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
+input,textarea{width:100%;background:#10141c;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:10px;font:inherit;min-width:0}
+input{font-size:16px}textarea{min-height:72px;resize:vertical}
+.setrow{display:grid;grid-template-columns:34px 1fr 1fr 1fr 28px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #2a303d;font-size:12px}
+.setrow input{padding:7px 5px;font-size:13px}.setrow .del{border:0;background:transparent;color:var(--red);padding:4px}
+.pill{display:inline-block;background:#293342;border-radius:99px;padding:4px 8px;color:var(--muted);font-size:11px}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.stat{background:var(--panel2);border-radius:11px;padding:10px}.stat strong{font-size:19px;display:block}.stat span{font-size:10px;color:var(--muted)}
+.section{margin:20px 0 10px}.section h2{margin-bottom:8px}
+.historyitem{padding:10px 0;border-bottom:1px solid var(--line)}.historyitem:last-child{border:0}
+.empty{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+footer{text-align:center;color:#737d90;font-size:11px;padding:18px}
+@media(min-width:600px){header{padding:28px max(22px,calc((100vw - 720px)/2)) 20px}.tabs{gap:10px}.daybtn{font-size:14px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Training log · 12-week build</div>
+  <h1>Goal to 180</h1>
+  <div class="sub">Show up. Add a rep. Get stronger.</div>
+</header>
+<main>
+  <section class="card">
+    <div class="row"><div><div class="tiny">YOUR TRAINING WEEK</div><h2 id="dayTitle">Monday · Upper A</h2></div><span class="pill" id="setCount">0 sets logged</span></div>
+    <div class="tabs" style="margin-top:13px">
+      <button class="daybtn active" data-day="Monday">MON<br>Upper A</button>
+      <button class="daybtn" data-day="Tuesday">TUE<br>Lower A</button>
+      <button class="daybtn" data-day="Thursday">THU<br>Upper B</button>
+      <button class="daybtn" data-day="Friday">FRI<br>Lower B</button>
+    </div>
+    <div class="tiny">Wednesday, Saturday and Sunday: recovery days.</div>
+  </section>
+  <div id="workout"></div>
+  <section class="card">
+    <h3>Session notes</h3>
+    <textarea id="sessionNotes" placeholder="Energy, technique, aches, adjustments..."></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="primary" id="saveSession">Save session</button>
+      <button class="ghost" id="copySession">Copy log</button>
+    </div>
+    <div class="tiny" style="margin-top:8px">Your sets and notes save automatically on this device. Save session adds a dated entry to your history.</div>
+  </section>
+  <section class="section">
+    <h2>Training history</h2>
+    <div class="card" id="history"><div class="empty">Your saved sessions will appear here.</div></div>
+  </section>
+  <section class="section">
+    <h2>Starting-point records</h2>
+    <div class="card" id="baselines"></div>
+  </section>
+  <section class="section">
+    <h2>Progress rules</h2>
+    <div class="card">
+      <p style="margin-top:0">When every set reaches the top of its rep range with solid form, add a small amount of weight next time.</p>
+      <p>Keep most main lifts around 1–2 reps in reserve. Do not force a weight increase if technique or recovery is slipping.</p>
+      <p class="muted" style="margin-bottom:0;font-size:12px">The “180” target is your north star, not a deadline. Track the trend and adjust training, food and recovery based on how your body responds.</p>
+    </div>
+  </section>
+  <footer>Goal to 180 · Your training data stays in this browser on this device.</footer>
+</main>
+<script>
+const plans={
+Monday:[
+["Pull-ups","4 sets · AMRAP"],["Incline Barbell Press","4 × 6–8 · 1–2 RIR"],["Bent-over Row","4 × 6–8 · 1–2 RIR"],["Seated Shoulder Press","4 × 6–8"],["Incline Dumbbell Fly","3 × 10–15"],["T-bar / Machine Row","3 × 8–12"],["Dumbbell Lateral Raise","3 drop sets"],["Skull Crusher","4 × 8–12"],["EZ-bar Curl","4 × 8–12"]],
+Tuesday:[
+["Back Squat","4 × 6–8 · 1–2 RIR"],["Good Morning","4 controlled sets"],["Leg Press","3 × 8–12"],["Dumbbell Walking Lunge","3 drop sets"],["Leg Extension","3 × 12–15 · final drop"],["Leg Curl","3 × 12–15"],["Calf Raise","4 × 15"],["Core Circuit","1 round · see notes"]],
+Thursday:[
+["Straight-arm Pulldown","3 × 15–20"],["Close-grip Bench Press","4 × 8–12"],["Weighted Pull-up / Lat Pulldown","3 × 6–8"],["Arnold Press","3 × 8–12"],["Machine / Cable Fly","3 × 12–15"],["Seal Row","3 × 8–12"],["Reverse Dumbbell Fly","3 × 12–15"],["Cable Lateral Raise","3 × 12–15"],["Tricep Pushdown","4 × 12–15"],["Preacher Curl","4 × 10–15"],["Optional Band Curl","2 × 15+"]],
+Friday:[
+["Front Squat","4 × 6–8"],["Nordic Curl","4 × 6–8"],["Hack / Landmine Squat","3 × 8–12"],["Romanian Deadlift","3 × 8–12 · only if back tolerates"],["Leg Extension","3 × 12–15 · final drop"],["Leg Curl","3 × 12–15"],["Calf Raise","3 × 15"],["Ab Machine / Cable Crunch","3 × 15"]]
+};
+const baselines=[["Pull-ups","6 reps"],["Incline press","95 × 8"],["Close-grip bench","105 × 8"],["Back squat","145 lb"],["Front squat","105 × 8"],["Arnold press","35 × 8"],["Walking lunge","35 lb"],["Landmine squat","170 × 8"],["Leg curl","80 lb"],["Calf raise","205 lb"]];
+const KEY="goalTo180_v1";
+let state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"sessions":[],"notes":{},"open":""}');
+let day="Monday";
+const $=s=>document.querySelector(s);
+function persist(){localStorage.setItem(KEY,JSON.stringify(state))}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function keyFor(d,e){return d+"::"+e}
+function setsFor(d,e){return state.logs[keyFor(d,e)]||[]}
+function render(){
+  $("#dayTitle").textContent=day+" · "+({Monday:"Upper A",Tuesday:"Lower A",Thursday:"Upper B",Friday:"Lower B"}[day]);
+  document.querySelectorAll("[data-day]").forEach(b=>b.classList.toggle("active",b.dataset.day===day));
+  let total=plans[day].reduce((n,x)=>n+setsFor(day,x[0]).length,0);$("#setCount").textContent=total+" sets logged";
+  $("#sessionNotes").value=state.notes[day]||"";
+  $("#workout").innerHTML=plans[day].map(([name,pres],i)=>{
+    let k=keyFor(day,name), arr=state.logs[k]||[], open=state.open===k;
+    return `<article class="exercise">
+      <button class="exhead" data-open="${safe(k)}"><span class="num">${i+1}</span><span class="exmeta"><span class="exname">${safe(name)}</span><span class="prescription">${safe(pres)} · ${arr.length} logged</span></span><span class="chev">${open?"−":"＋"}</span></button>
+      ${open?`<div class="exbody"><div class="logtitle">Log sets · right here</div>
+      <div class="setrow" style="color:var(--muted);font-weight:700"><span>SET</span><span>WEIGHT (LB)</span><span>REPS</span><span>RIR</span><span></span></div>
+      ${arr.map((s,j)=>`<div class="setrow"><strong>${j+1}</strong><input aria-label="Weight" type="number" inputmode="decimal" step="0.5" data-edit="${safe(k)}" data-i="${j}" data-field="weight" value="${safe(s.weight)}"><input aria-label="Reps" type="number" inputmode="numeric" data-edit="${safe(k)}" data-i="${j}" data-field="reps" value="${safe(s.reps)}"><input aria-label="RIR" type="number" inputmode="numeric" data-edit="${safe(k)}" data-i="${j}" data-field="rir" value="${safe(s.rir)}"><button class="del" data-del="${safe(k)}" data-i="${j}" aria-label="Delete set">×</button></div>`).join("")}
+      <div class="inputs" style="margin-top:10px">
+        <div><label>Weight (lb)</label><input id="w-${i}" type="number" inputmode="decimal" step="0.5" placeholder="e.g. 95"></div>
+        <div><label>Reps</label><input id="r-${i}" type="number" inputmode="numeric" placeholder="e.g. 8"></div>
+        <div><label>RIR</label><input id="rir-${i}" type="number" inputmode="numeric" placeholder="e.g. 2" value="2"></div>
+      </div>
+      <button class="primary" style="width:100%;margin-top:9px" data-add="${safe(k)}" data-index="${i}">＋ Add set</button>
+      </div>`:""}
+    </article>`;
+  }).join("");
+  $("#workout").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{state.open=state.open===b.dataset.open?"":b.dataset.open;persist();render()});
+  $("#workout").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{
+    const i=b.dataset.index,k=b.dataset.add,w=$("#w-"+i).value,r=$("#r-"+i).value,rir=$("#rir-"+i).value;
+    if(w===""||r===""){alert("Enter weight and reps to save this set.");return}
+    (state.logs[k]??=[]).push({weight:w,reps:r,rir:rir||""});persist();render();
+    state.open=k;persist();render();
+  });
+  $("#workout").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{let a=state.logs[b.dataset.del];a.splice(+b.dataset.i,1);persist();render()});
+  $("#workout").querySelectorAll("[data-edit]").forEach(inp=>inp.onchange=()=>{let a=state.logs[inp.dataset.edit];a[+inp.dataset.i][inp.dataset.field]=inp.value;persist()});
+  renderHistory();
+}
+function renderHistory(){
+  $("#history").innerHTML=state.sessions.length?state.sessions.slice().reverse().map(s=>`<div class="historyitem"><div class="row"><strong>${safe(s.day)}</strong><span class="tiny">${safe(s.date)}</span></div><div class="tiny">${s.count} sets recorded</div>${s.notes?`<div style="font-size:12px;margin-top:5px">${safe(s.notes)}</div>`:""}</div>`).join(""):'<div class="empty">Your saved sessions will appear here.</div>';
+}
+document.querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{day=b.dataset.day;state.open="";render()});
+$("#sessionNotes").oninput=e=>{state.notes[day]=e.target.value;persist()};
+$("#saveSession").onclick=()=>{
+ const count=plans[day].reduce((n,x)=>n+setsFor(day,x[0]).length,0);
+ if(!count){alert("Log at least one set before saving this session.");return}
+ state.sessions.push({day,date:new Date().toLocaleString(),count,notes:state.notes[day]||""});persist();renderHistory();alert("Session saved to your history on this device.");
+};
+$("#copySession").onclick=()=>{
+ let lines=[`Goal to 180 — ${day}`,new Date().toLocaleString()];
+ plans[day].forEach(([e])=>setsFor(day,e).forEach((s,i)=>lines.push(`${e} set ${i+1}: ${s.weight} lb × ${s.reps} reps · ${s.rir} RIR`)));
+ lines.push("Notes: "+(state.notes[day]||""));navigator.clipboard?.writeText(lines.join("\n")).then(()=>alert("Session copied.")).catch(()=>alert(lines.join("\n")));
+};
+$("#baselines").innerHTML=baselines.map(x=>`<div class="row" style="padding:7px 0;border-bottom:1px solid var(--line)"><span>${safe(x[0])}</span><strong>${safe(x[1])}</strong></div>`).join("")+'<p class="tiny">Historical entries from your previous notes; verify these before treating them as current working weights.</p>';
+render();
+if("serviceWorker" in navigator && location.protocol!=="file:"){navigator.serviceWorker.register("./sw.js").catch(()=>{});}
+</script>
+</body></html>
